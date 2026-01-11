@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Compact Complaint Form</title>
+
   <style>
     body {
       background: linear-gradient(135deg, #e0f7fa, #e1bee7);
@@ -76,118 +77,141 @@
       color: #fff;
     }
 
-    #generateComplaintBtn:hover {
-      background-color: #4a148c;
-    }
-
     #resetBtn {
       background-color: #ef5350;
-      color: white;
-    }
-
-    #resetBtn:hover {
-      background-color: #c62828;
-    }
-
-    @media (max-width: 400px) {
-      .container {
-        padding: 15px;
-      }
-      .btn-group {
-        flex-direction: column;
-      }
-      button {
-        margin: 5px 0;
-      }
+      color: #fff;
     }
   </style>
 </head>
+
 <body>
 
-  <div class="container">
-    <h2>Complaint Task</h2>
-    <form id="complaintForm">
-      <label for="complaintNumber">Complaint Number</label>
-      <input type="text" id="complaintNumber" required />
+<div class="container">
+  <h2>Complaint Task</h2>
 
-      <label for="customerName">Customer Name</label>
-      <input type="text" id="customerName" required />
+  <form id="complaintForm">
+    <label>Complaint Number</label>
+    <input type="text" id="complaintNumber" required>
 
-      <label for="phoneNumber">Phone Number</label>
-      <input type="tel" id="phoneNumber" required />
+    <label>Customer Name</label>
+    <input type="text" id="customerName" required>
 
-      <label for="complaintDate">Complaint Date</label>
-      <input type="text" id="complaintDate" placeholder="e.g., 03 June 2025" required />
+    <label>Phone Number</label>
+    <input type="tel" id="phoneNumber" required>
 
-      <label for="product">Product</label>
-      <input type="text" id="product" required />
+    <label>Complaint Date</label>
+    <input type="text" id="complaintDate" required>
 
-      <label for="itemNumber">Item Number</label>
-      <input type="text" id="itemNumber" required />
+    <label>Product</label>
+    <input type="text" id="product" required>
 
-      <label for="address">Address</label>
-      <textarea id="address" required></textarea>
+    <label>Item Number</label>
+    <input type="text" id="itemNumber" required>
 
-      <label for="pincode">Pincode</label>
-      <input type="text" id="pincode" required />
+    <label>Address</label>
+    <textarea id="address" required></textarea>
 
-      <label for="problem">Problem</label>
-      <textarea id="problem" required></textarea>
+    <label>Pincode</label>
+    <input type="text" id="pincode" required>
 
-      <div class="btn-group">
-        <button type="button" id="generateComplaintBtn">Generate</button>
-        <button type="button" id="resetBtn">Reset</button>
-      </div>
-    </form>
-  </div>
+    <label>Problem</label>
+    <textarea id="problem" required></textarea>
 
-  <script>
-    const form = document.getElementById('complaintForm');
-    const generateBtn = document.getElementById('generateComplaintBtn');
-    const resetBtn = document.getElementById('resetBtn');
+    <div class="btn-group">
+      <button type="button" id="generateComplaintBtn">Generate</button>
+      <button type="button" id="resetBtn">Reset</button>
+    </div>
+  </form>
+</div>
 
-    generateBtn.addEventListener('click', () => {
-      const fields = [
-        { id: "complaintNumber", label: "Complaint Number" },
-        { id: "customerName", label: "Customer Name" },
-        { id: "phoneNumber", label: "Phone Number" },
-        { id: "complaintDate", label: "Complaint Date" },
-        { id: "product", label: "Product" },
-        { id: "itemNumber", label: "Item Number" },
-        { id: "address", label: "Address" },
-        { id: "pincode", label: "Pincode" },
-        { id: "problem", label: "Problem" }
-      ];
+<script>
+const generateBtn = document.getElementById("generateComplaintBtn");
+const resetBtn = document.getElementById("resetBtn");
+const form = document.getElementById("complaintForm");
 
-      let html = fields.map(f => {
-        const val = document.getElementById(f.id).value || "(empty)";
-        return `<p><strong>${f.label}:</strong> ${val}</p>`;
-      }).join("");
+generateBtn.addEventListener("click", () => {
 
-      const newWin = window.open("", "", "width=500,height=500");
-      newWin.document.write(`
-        <html>
-        <head>
-          <title>Complaint Details</title>
-          <style>
-            body { font-family: Arial, sans-serif; padding: 20px; }
-            h2 { color: #6a1b9a; }
-            p { margin: 8px 0; font-size: 0.95rem; }
-          </style>
-        </head>
-        <body>
-          <h2>Complaint Details</h2>
-          ${html}
-        </body>
-        </html>
-      `);
-      newWin.document.close();
-    });
+  const fields = [
+    { id: "complaintNumber", label: "Complaint Number" },
+    { id: "customerName", label: "Customer Name" },
+    { id: "phoneNumber", label: "Phone Number" },
+    { id: "complaintDate", label: "Complaint Date" },
+    { id: "product", label: "Product" },
+    { id: "itemNumber", label: "Item Number" },
+    { id: "address", label: "Address" },
+    { id: "pincode", label: "Pincode" },
+    { id: "problem", label: "Problem" }
+  ];
 
-    resetBtn.addEventListener('click', () => {
-      form.reset();
-    });
-  </script>
+  const html = fields.map(f =>
+    `<p><strong>${f.label}:</strong> ${document.getElementById(f.id).value}</p>`
+  ).join("");
+
+  const text = fields.map(f =>
+    `${f.label}: ${document.getElementById(f.id).value}`
+  ).join("\n");
+
+  const popup = window.open("", "", "width=520,height=580");
+
+  popup.document.write(`
+  <html>
+  <head>
+    <title>Complaint Details</title>
+    <style>
+      body { font-family: Arial, sans-serif; padding: 20px; }
+      h2 { color: #6a1b9a; }
+      p { margin: 6px 0; }
+
+      button {
+        margin-top: 15px;
+        padding: 8px 14px;
+        background: #6a1b9a;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #copyNotice {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: green;
+        opacity: 0;
+        transform: translateY(-5px);
+        transition: all 0.4s ease;
+      }
+
+      #copyNotice.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Complaint Details</h2>
+    ${html}
+
+    <button onclick="copyData()">Copy Job Sheet</button>
+    <div id="copyNotice">✔ Job Sheet Copied</div>
+
+    <script>
+      function copyData() {
+        navigator.clipboard.writeText(\`${text}\`);
+        const note = document.getElementById("copyNotice");
+        note.classList.add("show");
+        setTimeout(() => note.classList.remove("show"), 1500);
+      }
+    <\/script>
+  </body>
+  </html>
+  `);
+
+  popup.document.close();
+});
+
+resetBtn.addEventListener("click", () => form.reset());
+</script>
 
 </body>
 </html>
